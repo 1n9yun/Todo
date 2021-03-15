@@ -26,20 +26,18 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RequestMapping(value = "/api/todo", produces = MediaTypes.HAL_JSON_VALUE)
 public class TodoController {
 
-    private final ModelMapper modelMapper;
-    private final TodoRepository todoRepository;
+    private final TodoService todoService;
     private final TodoValidator todoValidator;
 
-    public TodoController(ModelMapper modelMapper, TodoRepository todoRepository, TodoValidator todoValidator) {
-        this.modelMapper = modelMapper;
-        this.todoRepository = todoRepository;
+    public TodoController(TodoService todoService, TodoValidator todoValidator) {
+        this.todoService = todoService;
         this.todoValidator = todoValidator;
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
     @GetMapping
     public ResponseEntity getTodos(@CurrentUser Account currentUser){
-        ArrayList<Todo> todos = todoRepository.findAllByOwner(currentUser.getEmail());
+        ArrayList<Todo> todos = todoService.findAllByOwner(currentUser.getEmail());
 
         ListResource<Todo> todoListResource = new ListResource<>(todos);
         WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class);
@@ -58,13 +56,10 @@ public class TodoController {
         if(errors.hasErrors()) return ErrorsResource.badRequest(errors);
         this.todoValidator.validate(todoDto, errors);
         if(errors.hasErrors()) return ErrorsResource.badRequest(errors);
-        todoDto.setOwner(currentUser.getEmail());
 
-        Todo todo = modelMapper.map(todoDto, Todo.class);
-        todo = todoRepository.save(todo);
-        TodoResource todoResource = new TodoResource(todo);
+        TodoResource todoResource = new TodoResource(todoService.createTodo(todoDto, currentUser));
 
-        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(todo.getId());
+        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(todoResource.getTodo().getId());
         URI createdUri = linkBuilder.toUri();
 
         todoResource.add(Link.of("/docs/index.html#resources-todos-create").withRel("profile"));
@@ -79,13 +74,13 @@ public class TodoController {
     public ResponseEntity getTodo(@PathVariable Integer id,
                                   @CurrentUser Account currentUser
     ){
-        Optional<Todo> todo = todoRepository.findById(id);
+        Optional<Todo> todo = todoService.findById(id);
         if(todo.isEmpty()) return ResponseEntity.notFound().build();
         if(!todo.get().getOwner().equals(currentUser.getEmail())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
         TodoResource todoResource = new TodoResource(todo.get());
 
-        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(todo.get().getId());
+        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(id);
         todoResource.add(Link.of("/docs/index.html/#resources-todos-list").withRel("profile"));
         todoResource.add(linkBuilder.withRel("update-todo"));
         todoResource.add(linkBuilder.withRel("delete-todo"));
@@ -101,15 +96,16 @@ public class TodoController {
         if(errors.hasErrors()) return ErrorsResource.badRequest(errors);
         todoValidator.validate(todoDto, errors);
         if(errors.hasErrors()) return ErrorsResource.badRequest(errors);
-        if(todoRepository.findById(id).isEmpty()) return ResponseEntity.notFound().build();
-        if(!todoDto.getOwner().equals(currentUser.getEmail())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-        Todo todo = modelMapper.map(todoDto, Todo.class);
-        todo.setId(id);
-        todo = todoRepository.save(todo);
-        TodoResource todoResource = new TodoResource(todo);
+        Optional<Todo> todo = todoService.findById(id);
+        if(todo.isEmpty()) return ResponseEntity.notFound().build();
+        String owner = todo.get().getOwner();
+        if(!owner.equals(todoDto.getOwner()) || !owner.equals(currentUser.getEmail()))
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(todo.getId());
+        TodoResource todoResource = new TodoResource(todoService.updateTodo(todoDto, id));
+
+        WebMvcLinkBuilder linkBuilder = linkTo(TodoController.class).slash(id);
         todoResource.add(Link.of("/docs/index.html#resources-todos-update").withRel("profile"));
         todoResource.add(linkBuilder.withRel("query-todo"));
         todoResource.add(linkBuilder.withRel("delete-todo"));
@@ -121,11 +117,11 @@ public class TodoController {
     public ResponseEntity deleteTodo(@PathVariable Integer id,
                                      @CurrentUser Account currentUser
     ){
-        Optional<Todo> todo = todoRepository.findById(id);
+        Optional<Todo> todo = todoService.findById(id);
         if(todo.isEmpty()) return ResponseEntity.notFound().build();
         if(!todo.get().getOwner().equals(currentUser.getEmail())) return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 
-        todoRepository.delete(todo.get());
+        todoService.deleteTodo(id);
         return ResponseEntity.noContent().build();
     }
 }

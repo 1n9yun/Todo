@@ -105,16 +105,16 @@ public class TodoControllerTests extends BaseTest {
                                 headerWithName(HttpHeaders.CONTENT_TYPE).description("content type header")
                         ),
                         requestFields(
-                                fieldWithPath("owner").description("Owner of Todo"),
-                                fieldWithPath("completed").description("if completed or not of Todo"),
-                                fieldWithPath("title").description("Title of Todo"),
-                                fieldWithPath("description").description("Description of Todo"),
-                                fieldWithPath("startDate").description("StartDate of Todo"),
-                                fieldWithPath("endDate").description("EndDate of Todo"),
-                                fieldWithPath("cycle").description("Cycle of Todo"),
-                                fieldWithPath("cycleDetail").description("CycleDetail of Todo"),
-                                fieldWithPath("largeCategory").description("LargeCategory of Todo"),
-                                fieldWithPath("mediumCategory").description("MediumCategory of Todo")
+                                fieldWithPath("owner").ignored(),
+                                fieldWithPath("completed").type(Boolean.class).description("if completed or not of Todo"),
+                                fieldWithPath("title").type(String.class).description("Title of Todo\r\nNotEmpty"),
+                                fieldWithPath("description").type(String.class).description("Description of Todo"),
+                                fieldWithPath("startDate").type(LocalDate.class).description("StartDate of Todo"),
+                                fieldWithPath("endDate").type(LocalDate.class).description("EndDate of Todo"),
+                                fieldWithPath("cycle").type(LocalDate.class).description("Cycle of Todo"),
+                                fieldWithPath("cycleDetail").type(Integer.class).description("CycleDetail of Todo"),
+                                fieldWithPath("largeCategory").type(String.class).description("LargeCategory of Todo"),
+                                fieldWithPath("mediumCategory").type(String.class).description("MediumCategory of Todo")
                         ),
 
                         responseHeaders(

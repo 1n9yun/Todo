@@ -33,7 +33,7 @@
 === Index 조회
 `GET` 요청을 사용하여 인덱스에 접근할 수 있다.
 
-operation::index[snippets='response-body, http-response, link']
+operation::index[snippets='curl-request,http-request,response-body,http-response,links']
 
 [[resources-todos]]
 == Todo
@@ -43,7 +43,14 @@ Todo 리소스는 Todo를 만들거나 조회할 때 사용한다.
 [[resources-todos-list]]
 === Todo 목록 조회
 ==== 단일 조회
+하나의 Todo를 조회
+
 operation::query-todo[snippets='curl-request,http-request,request-headers,request-body,response-fields,http-response,response-headers,response-body,links']
+
+==== 전체 조회
+로그인한 회원이 가지고 있는 Todo의 리스트를 조회
+
+operation::query-todos[snippets='curl-request,http-request,request-headers,request-body,response-fields,http-response,response-headers,response-body,links']
 
 [[resources-todos-create]]
 === Todo 생성

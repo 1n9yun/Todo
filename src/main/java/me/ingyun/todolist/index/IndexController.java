@@ -1,5 +1,6 @@
 package me.ingyun.todolist.index;
 
+import me.ingyun.todolist.account.AccountController;
 import me.ingyun.todolist.todo.TodoController;
 import org.springframework.hateoas.RepresentationModel;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ public class IndexController {
     public RepresentationModel index(){
         var index = new RepresentationModel<>();
         index.add(linkTo(TodoController.class).withRel("todos"));
+        index.add(linkTo(AccountController.class).withRel("accounts"));
 //        ...
 
 
