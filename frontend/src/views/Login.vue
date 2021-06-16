@@ -6,23 +6,44 @@
             placeholder="이메일"
             outlined
             dense
+            v-model="email"
             ></v-text-field>
             <v-text-field
             :type="'password'"
             placeholder="패스워드"
             outlined
             dense
+            v-model="password"
             ></v-text-field>
             <v-btn
             style="width: 100%;"
+            @click="loginHandler"
             >로그인</v-btn>
         </v-flex>
     </v-layout>
 </template>
 
 <script>
-export default {
+import {mapActions} from "vuex";
 
+export default {
+    data() {
+        return {
+            email: "",
+            password: "",
+        }
+    },
+    methods: {
+        ...mapActions("user", [
+            "login"
+        ]),
+        loginHandler() {
+            this.login({
+                email: this.email,
+                password: this.password,
+            }).then(() => this.$router.push('/'));
+        }
+    }
 }
 </script>
 
