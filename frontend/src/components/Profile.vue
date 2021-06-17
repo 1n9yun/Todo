@@ -1,27 +1,20 @@
 <template>
-    <v-row
-    align="center"
-    justify="center"
+    <v-layout
+    style="flex: none;"
+    align-center
+    column
     >
-        <v-col
-        cols="3"
+        <v-avatar
+        color="indigo"
+        size="36"
         >
-            <v-avatar
-            color="indigo"
-            size="36"
-            >
-                <v-icon>
-                    mdi-account-circle
-                </v-icon>
-            </v-avatar>
-        </v-col>
-        <v-col
-        clas="15"
-        >
-            <span>{{$props.name}}</span><br>
-            <span>{{$props.email}}</span><br>
-        </v-col>
-    </v-row>
+            <v-icon>
+                mdi-account-circle
+            </v-icon>
+        </v-avatar>
+        <span>{{$props.name}}</span>
+        <span>{{$props.email}}</span>
+    </v-layout>
 </template>
 
 <script>
@@ -40,5 +33,16 @@ export default {
     margin: 0;
     margin-bottom: 12px;
     flex: 0;
+}
+.col {
+    padding: 0;
+}
+.v-avatar {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.layout {
+    margin-bottom: 20px;
+    font-size: 10pt;
 }
 </style>

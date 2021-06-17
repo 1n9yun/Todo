@@ -27,6 +27,7 @@ export default new Vuetify({
                 background: '#1c2028',
                 navBackground: '#1c2028',
                 navButton: '#1c2028',
+                appTitle: '#2d3139',
             }
         },
         options: {

@@ -1,8 +1,10 @@
 <template>
     <v-layout 
+    style="height: 100vh;"
     class="pr-4"
     column
     >
+        <h4>TodoRiki</h4>
         <Profile
         :name="$props.name"
         :email="$props.email"
@@ -54,7 +56,6 @@ export default {
 <style scoped>
 .layout {
     background-color: var(--v-navBackground-base);
-    height: 100vh; 
 }
 .v-btn-toggle {
     flex-direction: column;
@@ -65,5 +66,10 @@ export default {
 }
 .theme--dark.v-btn.v-btn--has-bg, .theme--light.v-btn.v-btn--has-bg {
     background-color: var(--v-background-base) !important;
+}
+h4 {
+    color: var(--v-appTitle-base);
+    padding-left: 12px;
+    padding-top: 12px;
 }
 </style>
