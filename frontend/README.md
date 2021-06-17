@@ -1,24 +1,7 @@
-# frontend
+# TodoRiki 컨셉
 
-## Project setup
-```
-npm install
-```
+## 두드리기
+### 망치 펑펑
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+# LICENSE
+logo, favicon: https://www.pngwing.com/ko/free-png-bwizs
