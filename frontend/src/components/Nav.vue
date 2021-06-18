@@ -1,10 +1,7 @@
 <template>
     <v-layout 
-    style="height: 100vh;"
-    class="pr-4"
     column
     >
-        <h4>TodoRiki</h4>
         <Profile
         :name="$props.name"
         :email="$props.email"
@@ -15,24 +12,24 @@
             tile
             >
                 <v-btn
-                class="justify-start pl-6"
+                class="justify-start"
                 >
                     <v-icon
                     left
-                    color="var(--v-primary-base)"
+                    color="yellow"
                     >
-                        mdi-pencil
+                        mdi-white-balance-sunny
                     </v-icon>
-                    Test
+                    오늘 할 일
                 </v-btn>
                 <v-btn
-                class="justify-start pl-6"
+                class="justify-start"
                 >Test Button 2dddddddddddddddddddddd</v-btn>
                 <v-btn
-                class="justify-start pl-6"
+                class="justify-start"
                 >Test Button 3</v-btn>
                 <v-btn
-                class="justify-start pl-6"
+                class="justify-start"
                 >Test Button 4</v-btn>
             </v-btn-toggle>
         </div>
@@ -63,13 +60,9 @@ export default {
 }
 .v-btn {
     overflow: hidden;
+    padding-left: 24px !important;
 }
 .theme--dark.v-btn.v-btn--has-bg, .theme--light.v-btn.v-btn--has-bg {
     background-color: var(--v-background-base) !important;
-}
-h4 {
-    color: var(--v-appTitle-base);
-    padding-left: 12px;
-    padding-top: 12px;
 }
 </style>

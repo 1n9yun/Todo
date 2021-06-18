@@ -1,12 +1,28 @@
 <template>
 	<v-app>
-		<v-container fill-height>
+		<v-container
+        fill-height
+        >
 			<v-main>
+                <TitleBar
+                v-if="this.$store.state.user.email"
+                />
 				<router-view/>
 			</v-main>
 		</v-container>
 	</v-app>
 </template>
+
+<script>
+import TitleBar from '@/components/TitleBar'
+
+export default {
+    components: {
+        TitleBar,
+    }
+}
+</script>
+
 
 <style>
 .theme--dark.v-application, .theme--light.v-application {
@@ -20,4 +36,11 @@
     padding: 0 !important;
     margin: 0 !important;
 }
+.v-main {
+    height: 100%;
+}
+html, body {
+    overflow-y: auto !important;
+}
+
 </style>
