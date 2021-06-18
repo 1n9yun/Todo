@@ -3,8 +3,10 @@
     style="flex: none;"
     align-center
     column
+    class="pb-5"
     >
         <v-avatar
+        class="my-5"
         color="indigo"
         size="36"
         >
@@ -28,21 +30,7 @@ export default {
 </script>
 
 <style scoped>
-.row {
-    height: 60px;
-    margin: 0;
-    margin-bottom: 12px;
-    flex: 0;
-}
-.col {
-    padding: 0;
-}
-.v-avatar {
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
 .layout {
-    margin-bottom: 20px;
     font-size: 10pt;
 }
 </style>
