@@ -1,6 +1,11 @@
 <template>
-    <v-layout column justify-center>
-        <v-flex align-self-center style="width: 300px;">
+    <v-layout 
+    align-center
+    justify-center
+    >
+        <v-flex
+        class="login-form"
+        >
             <h1>안녕하세요!</h1><br>
             <v-text-field
             placeholder="이메일"
@@ -46,3 +51,13 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.layout {
+    height: 100%;
+}
+.login-form {
+    max-width: 300px;
+    min-width: 300px;
+}
+</style>
