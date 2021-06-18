@@ -16,11 +16,11 @@
                 >
                     <v-icon
                     left
-                    color="var(--v-primary-base)"
+                    color="yellow"
                     >
-                        mdi-pencil
+                        mdi-white-balance-sunny
                     </v-icon>
-                    Test
+                    오늘 할 일
                 </v-btn>
                 <v-btn
                 class="justify-start"
@@ -60,6 +60,7 @@ export default {
 }
 .v-btn {
     overflow: hidden;
+    padding-left: 24px !important;
 }
 .theme--dark.v-btn.v-btn--has-bg, .theme--light.v-btn.v-btn--has-bg {
     background-color: var(--v-background-base) !important;
