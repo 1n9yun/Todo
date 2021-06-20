@@ -25,7 +25,7 @@ export default {
 
 
 <style>
-.theme--dark.v-application, .theme--light.v-application {
+html, body, .theme--dark.v-application, .theme--light.v-application {
     background: var(--v-background-base) !important;
 }
 .theme--dark.v-btn.v-btn--has-bg, .theme--light.v-btn.v-btn--has-bg {
